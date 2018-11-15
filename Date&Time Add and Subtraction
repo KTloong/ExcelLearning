@@ -1,0 +1,29 @@
+遍历并通过添加空行的方式补全GPS数据(最后让GPS数据行和行之间间隔为1s)
+使用时应当先选中遍历列的一个单元格作为开始单元格
+
+Sub Macro1()
+While Selection.Value <> ""
+Dim R As Integer
+Dim C As Integer
+Dim v As Integer
+
+R = Selection.Row
+C = Selection.Column
+v = Selection.Value
+
+100:
+
+If v = 1 Then
+Cells(R + 1, C).Select
+R = Selection.Row
+C = Selection.Column
+v = Selection.Value
+If 1 > 0 Then GoTo 100
+End If
+
+Rows(R & ":" & R + v - 2).Select
+Selection.Insert Shift:=xlDown, CopyOrigin:=xlFormatFromLeftOrAbove
+Cells(R + v, C).Select
+
+Wend
+End Sub
